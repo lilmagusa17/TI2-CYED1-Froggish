@@ -12,7 +12,7 @@ public class FroggishApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FroggishApplication.class.getResource("froggishApp-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("FROGGISH");
         stage.setScene(scene);
         stage.show();
     }

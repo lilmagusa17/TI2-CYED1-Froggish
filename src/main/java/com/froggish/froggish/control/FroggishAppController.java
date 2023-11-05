@@ -9,6 +9,6 @@ public class FroggishAppController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        welcomeText.setText("WELCOME TO FROGGISH!");
     }
 }
