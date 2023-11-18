@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//TODO: Test missing
 public class Graph<T> implements GraphInterface<T> {
     private ArrayList<Node<T>> listaAyacencia;
     int tiempo;
@@ -17,6 +16,7 @@ public class Graph<T> implements GraphInterface<T> {
     public void addVertex(T element) {
         listaAyacencia.add(new Node<>(element, new ArrayList<>()));
     }
+
     @Override
     public void addEdge(T elementA, T elementB) {
         for (Node<T> g: listaAyacencia) {
@@ -174,7 +174,6 @@ public class Graph<T> implements GraphInterface<T> {
         return matrix;
     }
 
-    //TODO: Should we add flyodWarshall? And Prim and Kruskal?
     @Override
     public int[][] floydWarshall() {
 
@@ -210,7 +209,7 @@ public class Graph<T> implements GraphInterface<T> {
         return adjacencyMatrix;
     }
 
-    //prim
+    @Override
     public void prim(){
 
         for (Node<T> node: listaAyacencia) {
@@ -245,7 +244,7 @@ public class Graph<T> implements GraphInterface<T> {
 
     }
 
-    //kruskal
+    @Override
     public void kruskal(){
 
         for (Node<T> node: listaAyacencia) {
