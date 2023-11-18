@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//TODO: Test missing
 public class Graph<T> implements GraphInterface<T> {
     private ArrayList<Node<T>> listaAyacencia;
     int tiempo;
@@ -17,6 +16,7 @@ public class Graph<T> implements GraphInterface<T> {
     public void addVertex(T element) {
         listaAyacencia.add(new Node<>(element, new ArrayList<>()));
     }
+
     @Override
     public void addEdge(T elementA, T elementB) {
         for (Node<T> g: listaAyacencia) {
@@ -174,11 +174,113 @@ public class Graph<T> implements GraphInterface<T> {
         return matrix;
     }
 
-    //TODO: Should we add flyodWarshall? And Prim and Kruskal?
     @Override
     public int[][] floydWarshall() {
-        return new int[0][];
+
+        int size = listaAyacencia.size();
+
+        int[][] adjacencyMatrix = new int[size][size];
+
+        for (int i = 0; i < size; i++) {
+            Node<T> node = listaAyacencia.get(i);
+
+            for (Node<T> adjacentNode : node.getNodosAdy()) {
+                int j = listaAyacencia.indexOf(adjacentNode);
+                adjacencyMatrix[i][j] = 1;
+            }
+        }
+
+        for (int k = 0; k < size; k++) {
+
+            for (int i = 0; i < size; i++) {
+
+                if (adjacencyMatrix[i][k] == 1) {
+
+                    for (int j = 0; j < size; j++) {
+
+                        if (adjacencyMatrix[k][j] == 1) {
+                            adjacencyMatrix[i][j] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return adjacencyMatrix;
     }
+
+    @Override
+    public void prim(){
+
+        for (Node<T> node: listaAyacencia) {
+
+            node.setColor(0);
+            node.setTiempo(Integer.MAX_VALUE);
+            node.setAntecedemte(null);
+        }
+
+        Node<T> u = listaAyacencia.get(0);
+        u.setTiempo(0);
+        u.setAntecedemte(null);
+        u.setColor(1);
+        Queue<Node<T>> graphNodes = new LinkedList<>();
+        graphNodes.add(u);
+
+        while (!graphNodes.isEmpty()){
+            Node<T> v = graphNodes.poll();
+
+            for (Node<T> adjacentNode: v.getNodosAdy()) {
+
+                if(adjacentNode.getColor() == 0) {
+                    adjacentNode.setColor(1);
+                    adjacentNode.setTiempo(adjacentNode.getTiempo()+1);
+                    adjacentNode.setAntecedemte(v);
+                    graphNodes.add(adjacentNode);
+                }
+            }
+
+            v.setColor(3);
+        }
+
+    }
+
+    @Override
+    public void kruskal(){
+
+        for (Node<T> node: listaAyacencia) {
+
+            node.setColor(0);
+            node.setTiempo(Integer.MAX_VALUE);
+            node.setAntecedemte(null);
+        }
+
+        Node<T> u = listaAyacencia.get(0);
+        u.setTiempo(0);
+        u.setAntecedemte(null);
+        u.setColor(1);
+        Queue<Node<T>> graphNodes = new LinkedList<>();
+        graphNodes.add(u);
+
+        while (!graphNodes.isEmpty()){
+            Node<T> v = graphNodes.poll();
+
+            for (Node<T> adjacentNode: v.getNodosAdy()) {
+
+                if(adjacentNode.getColor() == 0) {
+                    adjacentNode.setColor(1);
+                    adjacentNode.setTiempo(adjacentNode.getTiempo()+1);
+                    adjacentNode.setAntecedemte(v);
+                    graphNodes.add(adjacentNode);
+                }
+            }
+
+            v.setColor(3);
+        }
+
+    }
+
+
+
 
     @Override
     public boolean isStronglyConnected() {

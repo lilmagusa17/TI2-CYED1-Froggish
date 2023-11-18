@@ -10,5 +10,7 @@ public interface GraphInterface<T>{
     public void removeVertex(T element);
     public int[][] dijkstra(T element);
     public int[][] floydWarshall();
+    public void prim();
+    public void kruskal();
 
 }
