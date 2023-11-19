@@ -12,12 +12,12 @@ import java.util.Objects;
 
 public class FrogPlayer {
 
-    private static final String PATH_IDLE = "";
-    private static final String PATH_JUMPD = "";
-    private static final String PATH_JUMPU = "";
-    private static final String PATH_JUMPR = "";
-    private static final String PATH_JUMPL = "";
-    private static final String PATH_DEAD = "";
+    private final String PATH_IDLE = "";
+    private final String PATH_JUMPD = "";
+    private final String PATH_JUMPU = "";
+    private final String PATH_JUMPR = "";
+    private final String PATH_JUMPL = "";
+    private final String PATH_DEAD = "";
 
     private Canvas canvas;
     private GraphicsContext graphicsContext; //contexto grafico
@@ -100,7 +100,7 @@ public class FrogPlayer {
     }
 
 
-    public static void paint() {
+    public void paint() {
         stop();
         onMove();
         System.out.println(this.position.getX() + " " + this.position.getY());
@@ -128,7 +128,7 @@ public class FrogPlayer {
         this.frame++;
     }
 
-    public static void setOnKeyPressed(KeyEvent event) { //recibe evento del teclado
+    public void setOnKeyPressed(KeyEvent event) { //recibe evento del teclado
         switch (event.getCode()) {
             case UP:
                 this.state = State.JUMPU;
@@ -152,7 +152,7 @@ public class FrogPlayer {
         }
     }
 
-    public static void setOnKeyReleased(KeyEvent event) {
+    public void setOnKeyReleased(KeyEvent event) {
         switch (event.getCode()) {
 
             case UP:
