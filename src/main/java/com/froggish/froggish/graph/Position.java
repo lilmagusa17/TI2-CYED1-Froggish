@@ -1,24 +1,26 @@
 package com.froggish.froggish.graph;
 
-public class Vector {
+public class Position {
 
     private double x;
     private double y;
 
-    public Vector(double x, double y) {
+    public Position(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public Vector() {
+    public Position() {
         this.x = 0;
         this.y = 0;
     }
 
-    public Vector(Vector v) {
+    public Position(Position v) {
         this.x = v.getX();
         this.y = v.getY();
     }
+
+
 
     public double getX() {
         return x;
@@ -26,6 +28,14 @@ public class Vector {
 
     public double getY() {
         return y;
+    }
+
+    public void setX(double x){
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     public void div(double scalar) {

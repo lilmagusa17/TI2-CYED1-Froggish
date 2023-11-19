@@ -1,15 +1,11 @@
 package com.froggish.froggish.control;
 
-import com.froggish.froggish.FroggishApplication;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -30,7 +26,7 @@ public class FroggishAppController {
 
     @FXML
     public void startGame(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/froggish/froggish/thirdLevel-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/froggish/froggish/game-view.fxml"));
         root = fxmlLoader.load();
         scene = new Scene(root);
         stage = (Stage) ap.getScene().getWindow();

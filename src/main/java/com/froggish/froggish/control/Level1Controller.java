@@ -1,30 +1,29 @@
 package com.froggish.froggish.control;
 
-import com.froggish.froggish.screen.Level1;
-import com.froggish.froggish.screen.Level3;
+import com.froggish.froggish.screen.GameScreen;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Level1Controller {
+public class Level1Controller implements Initializable {
 
     @FXML
     private Canvas canvas;
 
     private GraphicsContext graphicsContext;
 
-    private Level1 screenA;
-    private Level2 screenB;
-    private Level3 screenC;
+    private GameScreen screenA;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.graphicsContext=this.canvas.getGraphicsContext2D();
-        this.screenA=new Level1(this.canvas);//aqui solucionamos toda la inyeccion de dependencia
+        this.screenA=new GameScreen(this.canvas);//aqui solucionamos toda la inyeccion de dependencia
         this.screenA.paint();//pintamos el screenA
 
         //suscribe el canvas a las acciones del teclado
