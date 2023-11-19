@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Level1Controller implements Initializable {
+public class GameController implements Initializable {
 
     @FXML
     private Canvas canvas;

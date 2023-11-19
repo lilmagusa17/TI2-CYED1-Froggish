@@ -6,11 +6,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FrogPlayer {
+public class FrogPlayer{
 
     private final String PATH_IDLE = "";
     private final String PATH_JUMPD = "";
