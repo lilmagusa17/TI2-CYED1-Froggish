@@ -132,13 +132,16 @@ private void connectNodesInColumn(int currentColumnX, int nextColumnX, int numRo
             int nextX2 = nextColumnX;
             int nextY2 = 250 + (row + 1) * 50;
 
-            // Connect the nodes (create edges in the graph)
-            // Example: graph.addEdge(getNodeAt(currentX, currentY), getNodeAt(nextX1, nextY1));
-            // Example: graph.addEdge(getNodeAt(currentX, currentY), getNodeAt(nextX2, nextY2));
+            WaterLily currentLily = getNodeAt(currentX, currentY);
+            WaterLily nextLily1 = getNodeAt(nextX1, nextY1);
+            WaterLily nextLily2 = getNodeAt(nextX2, nextY2);
+
+
         }
+
+
     }
 
-    // Method to get the rock node at a specific location
     private WaterLily getNodeAt(int x, int y) {
         for (WaterLily waterLily : waterLilies) {
             if (waterLily.getPosition().getX() == x && waterLily.getPosition().getY() == y) {
@@ -152,8 +155,8 @@ private void connectNodesInColumn(int currentColumnX, int nextColumnX, int numRo
     private void visualizeGraph() {
         for (WaterLily waterLily : waterLilies) {
             waterLily.paint();
+
         }
-        // Draw edges between connected nodes
-        // Example: Iterate through the connected nodes and draw lines between them
+
     }
 }

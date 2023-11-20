@@ -1,5 +1,4 @@
 package com.froggish.froggish.control;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
