@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
+import java.lang.invoke.CallSite;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
@@ -41,7 +42,9 @@ public class FrogPlayer{
     private int frame; //current frame
 
     private boolean rightPressed;
-    private boolean leftPressed;
+
+
+
     private boolean upPressed;
 
     private boolean downPressed;
@@ -64,7 +67,7 @@ public class FrogPlayer{
         //this.jumpsLeft = new ArrayList<>();
         this.dead = new ArrayList<>();
 
-        this.position = new Position(100, 100);
+        this.position = new Position(100, 300);
         //0,0-> esquina superior izquierda
 
         for (int i = 1; i <= 8; i++) { //idle 8
@@ -92,10 +95,7 @@ public class FrogPlayer{
             this.position.setX(canvasWidth - 30);
             this.rightPressed = false;
         }
-        if (leftPressed && position.getX() <= 0) {
-            this.position.setX(0);
-            this.leftPressed = false;
-        }
+
         if (upPressed && position.getY() <= 0) {
             this.position.setY(0);
             this.upPressed = false;
@@ -147,15 +147,11 @@ public class FrogPlayer{
                 this.downPressed = true;
                 break;
 
-            case LEFT:
-                this.state = State.JUMPR;
-                this.leftPressed = true;
-                break;
-
             case RIGHT:
                 this.state = State.JUMPR;
                 this.rightPressed = true;
                 break;
+
 
         }
     }
@@ -173,24 +169,20 @@ public class FrogPlayer{
                 this.downPressed = false;
                 break;
 
-            case LEFT:
-                this.state = State.IDLE;
-                this.leftPressed = false;
-                break;
-
             case RIGHT:
                 this.state = State.IDLE;
                 this.rightPressed = false;
                 break;
+
         }
     }
 
     public void onMove() {
         int step = 5;
 
-        if (rightPressed && !leftPressed) {
+        if (rightPressed) {
             this.position.setX(this.position.getX() + step);
-        } else if (leftPressed && !rightPressed) {
+        } else {
             this.position.setX(this.position.getX() - step);
         }
 
@@ -225,9 +217,6 @@ public class FrogPlayer{
             this.position.setX(wl.getPosition().getX() - this.getSize());
             this.rightPressed = false;
 
-        } else if (leftPressed) {
-            this.position.setX(wl.getPosition().getX() + wl.getSize());
-            this.leftPressed = false;
         }
 
         if (upPressed) {

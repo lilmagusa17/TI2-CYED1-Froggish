@@ -1,4 +1,5 @@
 package com.froggish.froggish.screen;
+import com.froggish.froggish.graph.GraphInterface;
 import com.froggish.froggish.graph.Position;
 import com.froggish.froggish.model.FrogPlayer;
 import com.froggish.froggish.model.WaterLily;
@@ -24,7 +25,6 @@ public class GameScreen{
 
         this.waterLilies = new ArrayList<>();
 
-
     }
 
     public void paint(){
@@ -44,7 +44,7 @@ public class GameScreen{
         frogPlayer.setOnKeyReleased(event);
     }
 
-    public void createAndVisualizeGraph() {
+    /*public void createAndVisualizeGraph() {
         int numRows = 10; // Adjust the number of rows as needed
         int numColumns = 15; // Adjust the number of columns as needed
 
@@ -74,37 +74,66 @@ public class GameScreen{
         // Visualize the graph on the canvas
         visualizeGraph();
 
-    }
+    }*/
 
-      /*
-        // Method to connect nodes in a single column
-private void connectNodesInColumn(int currentColumnX, int nextColumnX, int numRows) {
-    for (int row = 0; row < numRows; row++) {
-        int currentX = currentColumnX;
-        int currentY = 250 + row * 50;
 
-        int nextX1 = nextColumnX;
-        int nextY1 = 250 + row * 50;
+    private void addWaterLilyNode() {
+        //FIXME: change positions
+        this.waterLilies.add(new WaterLily(new Position(0, 300), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
 
-        int nextX2 = nextColumnX;
-        int nextY2 = 250 + (row + 1) * 50;
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
 
-        WaterLily currentLily = getNodeAt(currentX, currentY);
-        WaterLily nextLily1 = getNodeAt(nextX1, nextY1);
-        WaterLily nextLily2 = getNodeAt(nextX2, nextY2);
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
 
-        // Connect the nodes (create edges in the graph)
-        // Example: currentLily.connectTo(nextLily1);
-        // Example: currentLily.connectTo(nextLily2);
-    }
-}
-         */
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
 
-    // Method to add a rock node to the graph
-    private void addWaterLilyNode(int x, int y) {
-        // Create a lotus node and add it to the graph
-        // You may want to store the nodes in a data structure for future reference
-        // Example: graph.addVertex(new RockNode(x, y));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 0), this.canvas));
+        this.waterLilies.add(new WaterLily(new Position(0, 300), this.canvas));
+
     }
 
     // Method to connect nodes in columns to represent possible jumps
@@ -159,4 +188,25 @@ private void connectNodesInColumn(int currentColumnX, int nextColumnX, int numRo
         }
 
     }
+
+    private void drawGraph(GraphInterface<String> graph, int startX, int startY, int spacingX, int spacingY, int numRows, int numColumns) {
+        // Create and add nodes to the graph
+        for (int col = 0; col < numColumns; col++) {
+            int numNodesInColumn = (col == 0 || col == numColumns - 1) ? 3 : 4;
+
+            for (int row = 0; row < numNodesInColumn; row++) {
+                int x = startX + col * spacingX;
+                int y = startY + row * spacingY;
+                graph.addVertex("(" + x + ", " + y + ")"); // Add the rock node to the graph
+            }
+        }
+
+        // Add edges between nodes to represent connections
+        connectNodesInColumns(startX, spacingX, numRows, numColumns);
+
+        // Visualize the graph on the canvas
+        visualizeGraph();
+    }
+
+
 }
