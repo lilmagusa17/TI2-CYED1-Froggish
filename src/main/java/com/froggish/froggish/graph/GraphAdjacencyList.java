@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Graph<T> implements GraphInterface<T> {
+public class GraphAdjacencyList<T> implements GraphInterface<T> {
     private ArrayList<Node<T>> listaAyacencia;
     int tiempo;
 
-    public Graph() {
+    public GraphAdjacencyList() {
         listaAyacencia = new ArrayList<>();
     }
 
