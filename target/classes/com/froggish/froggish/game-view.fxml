@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.froggish.froggish.control.GameController">
+   <children>
+      <Canvas height="600" layoutY="0.0" width="900.0" fx:id="canvas" focusTraversable="true" />
+   </children>
+</AnchorPane>
