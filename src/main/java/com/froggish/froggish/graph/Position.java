@@ -1,5 +1,4 @@
 package com.froggish.froggish.graph;
-
 public class Position {
 
     private double x;
