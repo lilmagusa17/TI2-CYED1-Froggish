@@ -1,5 +1,7 @@
 package com.froggish.froggish.control;
 
+import com.froggish.froggish.graph.GraphAdjacencyList;
+import com.froggish.froggish.graph.Position;
 import com.froggish.froggish.screen.GameScreen;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,12 +21,16 @@ public class GameController implements Initializable {
 
     private GameScreen screenA;
 
+    private GraphAdjacencyList<Position> graph;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.graphicsContext=this.canvas.getGraphicsContext2D();
-        this.screenA=new GameScreen(this.canvas);//aqui solucionamos toda la inyeccion de dependencia
-        this.screenA.paint();//pintamos el screenA
+        this.graphicsContext = this.canvas.getGraphicsContext2D();
+        this.graph = createMatrixGraph();  // Initialize the graph
+
+        this.screenA = new GameScreen(this.canvas, graph);
+        this.screenA.paint();
 
         //suscribe el canvas a las acciones del teclado
         //el screen le pasa el movimiento al avatar
@@ -71,6 +77,36 @@ public class GameController implements Initializable {
 
     public void paint(){
         screenA.paint();
+    }
+
+    private GraphAdjacencyList<Position> createMatrixGraph() {
+        GraphAdjacencyList<Position> graph = new GraphAdjacencyList<>();
+
+        int numRows = 5;
+        int numCols = 10;
+        int nodeSpacing = 90;
+
+        // Add nodes
+        for (int row = 1; row <= numRows; row++) {
+            for (int i = 1; i <= numCols; i++) {
+                Position nodePosition = new Position(i * nodeSpacing, row * nodeSpacing);
+                graph.addVertex(nodePosition);
+
+                // Connect nodes horizontally
+                if (i > 1) {
+                    Position leftNode = new Position((i - 1) * nodeSpacing, row * nodeSpacing);
+                    graph.addEdge(nodePosition, leftNode);
+                }
+
+                // Connect nodes vertically
+                if (row > 1) {
+                    Position topNode = new Position(i * nodeSpacing, (row - 1) * nodeSpacing);
+                    graph.addEdge(nodePosition, topNode);
+                }
+            }
+        }
+
+        return graph;
     }
 
 }

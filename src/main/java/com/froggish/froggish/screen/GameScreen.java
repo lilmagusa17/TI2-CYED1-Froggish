@@ -1,9 +1,13 @@
 package com.froggish.froggish.screen;
+import com.froggish.froggish.graph.GraphAdjacencyList;
+import com.froggish.froggish.graph.GraphInterface;
+import com.froggish.froggish.graph.Node;
 import com.froggish.froggish.graph.Position;
 import com.froggish.froggish.model.FrogPlayer;
 import com.froggish.froggish.model.WaterLily;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
@@ -14,16 +18,19 @@ public class GameScreen{
     private GraphicsContext graphicsContext;
     private FrogPlayer frogPlayer;
 
+    private GraphAdjacencyList<Position> graph;
+
     private ArrayList<WaterLily> waterLilies;
 
 
-    public GameScreen(Canvas canvas){//recibe canvas por inyeccion de dependencia (patron de dise;o, asociacion entre el Screen y Canvas)
+    public GameScreen(Canvas canvas, GraphAdjacencyList<Position> graph){//recibe canvas por inyeccion de dependencia (patron de dise;o, asociacion entre el Screen y Canvas)
         this.canvas=canvas;       //Canvas no se inicializa, solo se recibe, para lograr que todos hagan referencia al mismo Canvas
         this.graphicsContext=this.canvas.getGraphicsContext2D();
         this.frogPlayer=new FrogPlayer(this.canvas);
 
-        this.waterLilies = new ArrayList<>();
+        this.graph = graph;
 
+        this.waterLilies = new ArrayList<>();
 
     }
 
@@ -31,8 +38,10 @@ public class GameScreen{
 
         graphicsContext.setFill(Color.THISTLE);
         graphicsContext.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
-
+        drawGraph();
         frogPlayer.paint();//el avatar se pinta sobre el canvas donde esta el screen
+
+
 
     }
 
@@ -44,119 +53,78 @@ public class GameScreen{
         frogPlayer.setOnKeyReleased(event);
     }
 
-    public void createAndVisualizeGraph() {
-        int numRows = 10; // Adjust the number of rows as needed
-        int numColumns = 15; // Adjust the number of columns as needed
-
-        int startX = 50; // X-coordinate of the starting node
-        int startY = 250; // Y-coordinate of the starting node
-
-        int spacingX = 100; // Horizontal spacing between nodes
-        int spacingY = 50; // Vertical spacing between nodes
-
-        int homeX = startX + (numColumns - 1) * spacingX; // X-coordinate of the home node
-        int homeY = startY; // Y-coordinate of the home node
-
-        // Create and add nodes to the graph
-        for (int col = 0; col < numColumns; col++) {
-            int numNodesInColumn = (col == 0 || col == numColumns - 1) ? 3 : 4;
-
-            for (int row = 0; row < numNodesInColumn; row++) {
-                int x = startX + col * spacingX;
-                int y = startY + row * spacingY;
-                addWaterLilyNode(x, y); // Add the rock node to the graph
+    /*private void drawGraph() {
+        ArrayList<Node<Position>> nodes = graph.getNodes();
+        for (Node<Position> node : nodes) {
+            drawNode(node.getValor());
+            for (Node<Position> adjacentNode : node.getNodosAdy()) {
+                drawPath(node.getValor(), adjacentNode.getValor());
             }
         }
+    }*/
 
-        // Add edges between nodes to represent connections
-        connectNodesInColumns(startX, spacingX, numRows, numColumns);
-
-        // Visualize the graph on the canvas
-        visualizeGraph();
-
-    }
-
-      /*
-        // Method to connect nodes in a single column
-private void connectNodesInColumn(int currentColumnX, int nextColumnX, int numRows) {
-    for (int row = 0; row < numRows; row++) {
-        int currentX = currentColumnX;
-        int currentY = 250 + row * 50;
-
-        int nextX1 = nextColumnX;
-        int nextY1 = 250 + row * 50;
-
-        int nextX2 = nextColumnX;
-        int nextY2 = 250 + (row + 1) * 50;
-
-        WaterLily currentLily = getNodeAt(currentX, currentY);
-        WaterLily nextLily1 = getNodeAt(nextX1, nextY1);
-        WaterLily nextLily2 = getNodeAt(nextX2, nextY2);
-
-        // Connect the nodes (create edges in the graph)
-        // Example: currentLily.connectTo(nextLily1);
-        // Example: currentLily.connectTo(nextLily2);
-    }
-}
-         */
-
-    // Method to add a rock node to the graph
-    private void addWaterLilyNode(int x, int y) {
-        // Create a lotus node and add it to the graph
-        // You may want to store the nodes in a data structure for future reference
-        // Example: graph.addVertex(new RockNode(x, y));
-    }
-
-    // Method to connect nodes in columns to represent possible jumps
-    private void connectNodesInColumns(int startX, int spacingX, int numRows, int numColumns) {
-        // Iterate through each column
-        for (int col = 0; col < numColumns - 1; col++) {
-            int currentColumnX = startX + col * spacingX;
-            int nextColumnX = currentColumnX + spacingX;
-
-            // Connect nodes in the current column to nodes in the next column
-            connectNodesInColumn(currentColumnX, nextColumnX, numRows);
-        }
-    }
-
-    // Method to connect nodes in a single column
-    private void connectNodesInColumn(int currentColumnX, int nextColumnX, int numRows) {
-        // Connect each node in the current column to the corresponding nodes in the next column
-        for (int row = 0; row < numRows; row++) {
-            int currentX = currentColumnX;
-            int currentY = 250 + row * 50;
-
-            int nextX1 = nextColumnX;
-            int nextY1 = 250 + row * 50;
-
-            int nextX2 = nextColumnX;
-            int nextY2 = 250 + (row + 1) * 50;
-
-            WaterLily currentLily = getNodeAt(currentX, currentY);
-            WaterLily nextLily1 = getNodeAt(nextX1, nextY1);
-            WaterLily nextLily2 = getNodeAt(nextX2, nextY2);
-
-
+    private void drawGraph() {
+        if (graph == null) {
+            System.out.println("Graph is null");
+            return;
         }
 
+        ArrayList<Node<Position>> nodes = graph.getNodes();
+        if (nodes == null) {
+            System.out.println("Nodes list is null");
+            return;
+        }
 
-    }
+        for (Node<Position> node : nodes) {
+            if (node == null || node.getValor() == null) {
+                System.out.println("Node or its value is null");
+                continue;
+            }
 
-    private WaterLily getNodeAt(int x, int y) {
-        for (WaterLily waterLily : waterLilies) {
-            if (waterLily.getPosition().getX() == x && waterLily.getPosition().getY() == y) {
-                return waterLily;
+            drawNode(node.getValor());
+
+            ArrayList<Node<Position>> adjacentNodes = node.getNodosAdy();
+            if (adjacentNodes != null) {
+                for (Node<Position> adjacentNode : adjacentNodes) {
+                    if (adjacentNode != null && adjacentNode.getValor() != null) {
+                        drawPath(node.getValor(), adjacentNode.getValor());
+                    } else {
+                        System.out.println("Adjacent node or its value is null");
+                    }
+                }
             }
         }
-        return null;
     }
 
-    // Method to visualize the graph on the canvas
-    private void visualizeGraph() {
-        for (WaterLily waterLily : waterLilies) {
-            waterLily.paint();
 
-        }
+    private void drawNode(Position position) {
+        GraphicsContext gc = getGraphicsContext();
 
+        // Load water lily sprite
+        Image waterLily = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 60, 60, false, false);
+
+        // Draw water lily sprite
+        gc.drawImage(waterLily, position.getX() - 30 / 2, position.getY() - 30 / 2);
     }
+
+
+    private GraphicsContext getGraphicsContext() {
+        return this.canvas.getGraphicsContext2D();
+    }
+
+    private void drawPath(Position start, Position end) {
+        GraphicsContext gc = getGraphicsContext();
+
+        // Load water lily sprite for the path
+        Image waterLilyPath = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 40, 40, false, false);
+
+        // Draw water lily sprite for the path
+        gc.drawImage(waterLilyPath, start.getX() - 30 / 2, start.getY() - 30 / 2);
+        gc.drawImage(waterLilyPath, end.getX() - 30 / 2, end.getY() - 30 / 2);
+
+        // Draw a line connecting the nodes
+        gc.setStroke(Color.GRAY);
+        gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
+    }
+
 }

@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Graph<T> implements GraphInterface<T> {
-    private ArrayList<Node<T>> listaAyacencia;
-    int tiempo;
+public class GraphAdjacencyList<T> implements GraphInterface<T> {
+    private ArrayList<Node<T>> adjList;
+    int time;
 
-    public Graph() {
-        listaAyacencia = new ArrayList<>();
+    public GraphAdjacencyList() {
+        adjList = new ArrayList<>();
     }
 
     @Override
     public void addVertex(T element) {
-        listaAyacencia.add(new Node<>(element, new ArrayList<>()));
+        adjList.add(new Node<>(element, new ArrayList<>()));
     }
 
     @Override
     public void addEdge(T elementA, T elementB) {
-        for (Node<T> g: listaAyacencia) {
+        for (Node<T> g: adjList) {
             if(g.getValor().equals(elementA)) {
-                for (Node<T> f: listaAyacencia) {
+                for (Node<T> f: adjList) {
                     if(f.getValor().equals(elementB)){
                         g.getNodosAdy().add(f);
                     }
@@ -33,9 +33,9 @@ public class Graph<T> implements GraphInterface<T> {
 
     @Override
     public void removeEdge(T elementA, T elementB) {
-        for (Node<T> g: listaAyacencia) {
+        for (Node<T> g: adjList) {
             if(g.getValor().equals(elementA)) {
-                for (Node<T> f: listaAyacencia) {
+                for (Node<T> f: adjList) {
                     if(f.getValor().equals(elementB)){
                         g.getNodosAdy().remove(f);
                     }
@@ -48,23 +48,23 @@ public class Graph<T> implements GraphInterface<T> {
 
     @Override
     public void removeVertex(T element) {
-        for (Node<T> g: listaAyacencia) {
+        for (Node<T> g: adjList) {
             if(g.getValor().equals(element)) {
-                listaAyacencia.remove(g);
+                adjList.remove(g);
             }
         }
     }
 
     @Override
     public int DFS(){
-        for (Node<T> graphNode: listaAyacencia) {
+        for (Node<T> graphNode: adjList) {
             graphNode.setAntecedemte(null);
             graphNode.setColor(0);
             graphNode.setTiempo(0);
         }
         int trees = 0;
         int time = 0;
-        for (Node<T> graphNode: listaAyacencia) {
+        for (Node<T> graphNode: adjList) {
             if(graphNode.getColor() == 0) {
                 trees++;
                 DFSVisit(graphNode);
@@ -73,8 +73,8 @@ public class Graph<T> implements GraphInterface<T> {
         return trees;
     }
     public void DFSVisit(Node<T> graphNode){
-        tiempo++;
-        graphNode.setTiempo(tiempo);
+        time++;
+        graphNode.setTiempo(time);
         graphNode.setColor(1);
         for (Node<T> adjacencyNode: graphNode.getNodosAdy()) {
             if(adjacencyNode.getColor() == 0) {
@@ -83,12 +83,12 @@ public class Graph<T> implements GraphInterface<T> {
             }
         }
         graphNode.setColor(2);
-        tiempo++;
-        graphNode.setTiempo(tiempo);
+        time++;
+        graphNode.setTiempo(time);
     }
 
     public Node<T> searchNode(T element) {
-        for (Node<T> g: listaAyacencia) {
+        for (Node<T> g: adjList) {
             if(g.getValor().equals(element)){
                 return g;
             }
@@ -98,7 +98,7 @@ public class Graph<T> implements GraphInterface<T> {
     @Override
     public boolean BFS(T element) {
         Node <T> graphNode = searchNode(element);
-        for (Node<T> adjacentNode: listaAyacencia) {
+        for (Node<T> adjacentNode: adjList) {
             adjacentNode.setColor(0);
             adjacentNode.setTiempo(Integer.MAX_VALUE);
             adjacentNode.setAntecedemte(null);
@@ -120,7 +120,7 @@ public class Graph<T> implements GraphInterface<T> {
             }
             u.setColor(3);
         }
-        for (Node<T> g: listaAyacencia) {
+        for (Node<T> g: adjList) {
             if(g.getColor() == 0) {
                 return false;
             }
@@ -131,7 +131,7 @@ public class Graph<T> implements GraphInterface<T> {
     @Override
     public int[][] dijkstra(T element) {
         Node <T> graphNode = searchNode(element);
-        for (Node<T> adjacentNode: listaAyacencia) {
+        for (Node<T> adjacentNode: adjList) {
             adjacentNode.setColor(0);
             adjacentNode.setTiempo(Integer.MAX_VALUE);
             adjacentNode.setAntecedemte(null);
@@ -153,21 +153,21 @@ public class Graph<T> implements GraphInterface<T> {
             }
             u.setColor(3);
         }
-        for (Node<T> g: listaAyacencia) {
+        for (Node<T> g: adjList) {
             if(g.getColor() == 0) {
                 return null;
             }
         }
-        int[][] matrix = new int[listaAyacencia.size()][listaAyacencia.size()];
-        for (int i = 0; i < listaAyacencia.size(); i++) {
-            for (int j = 0; j < listaAyacencia.size(); j++) {
+        int[][] matrix = new int[adjList.size()][adjList.size()];
+        for (int i = 0; i < adjList.size(); i++) {
+            for (int j = 0; j < adjList.size(); j++) {
                 matrix[i][j] = 0;
             }
         }
-        for (int i = 0; i < listaAyacencia.size(); i++) {
-            Node<T> node = listaAyacencia.get(i);
+        for (int i = 0; i < adjList.size(); i++) {
+            Node<T> node = adjList.get(i);
             for (Node<T> adjacentNode : node.getNodosAdy()) {
-                int j = listaAyacencia.indexOf(adjacentNode);
+                int j = adjList.indexOf(adjacentNode);
                 matrix[i][j] = 1;
             }
         }
@@ -177,15 +177,15 @@ public class Graph<T> implements GraphInterface<T> {
     @Override
     public int[][] floydWarshall() {
 
-        int size = listaAyacencia.size();
+        int size = adjList.size();
 
         int[][] adjacencyMatrix = new int[size][size];
 
         for (int i = 0; i < size; i++) {
-            Node<T> node = listaAyacencia.get(i);
+            Node<T> node = adjList.get(i);
 
             for (Node<T> adjacentNode : node.getNodosAdy()) {
-                int j = listaAyacencia.indexOf(adjacentNode);
+                int j = adjList.indexOf(adjacentNode);
                 adjacencyMatrix[i][j] = 1;
             }
         }
@@ -212,14 +212,14 @@ public class Graph<T> implements GraphInterface<T> {
     @Override
     public void prim(){
 
-        for (Node<T> node: listaAyacencia) {
+        for (Node<T> node: adjList) {
 
             node.setColor(0);
             node.setTiempo(Integer.MAX_VALUE);
             node.setAntecedemte(null);
         }
 
-        Node<T> u = listaAyacencia.get(0);
+        Node<T> u = adjList.get(0);
         u.setTiempo(0);
         u.setAntecedemte(null);
         u.setColor(1);
@@ -247,14 +247,14 @@ public class Graph<T> implements GraphInterface<T> {
     @Override
     public void kruskal(){
 
-        for (Node<T> node: listaAyacencia) {
+        for (Node<T> node: adjList) {
 
             node.setColor(0);
             node.setTiempo(Integer.MAX_VALUE);
             node.setAntecedemte(null);
         }
 
-        Node<T> u = listaAyacencia.get(0);
+        Node<T> u = adjList.get(0);
         u.setTiempo(0);
         u.setAntecedemte(null);
         u.setColor(1);
@@ -284,7 +284,7 @@ public class Graph<T> implements GraphInterface<T> {
 
     @Override
     public boolean isStronglyConnected() {
-        for (Node<T> node: listaAyacencia) {
+        for (Node<T> node: adjList) {
             if (!BFS(node.getValor())) {
                 return false;
             }
@@ -295,7 +295,7 @@ public class Graph<T> implements GraphInterface<T> {
     @Override
     public String toString() {
         String graph = "";
-        for (Node<T> node: listaAyacencia) {
+        for (Node<T> node: adjList) {
             graph += node.getValor() + ": ";
             for (Node<T> adjacentNode: node.getNodosAdy()) {
                 graph += adjacentNode.getValor() + " ";
@@ -306,7 +306,7 @@ public class Graph<T> implements GraphInterface<T> {
     }
 
     public T toStringAsMatrix() {
-        int size = listaAyacencia.size();
+        int size = adjList.size();
 
         int[][] adjacencyMatrix = new int[size][size];
 
@@ -318,9 +318,9 @@ public class Graph<T> implements GraphInterface<T> {
         }
 
         for (int i = 0; i < size; i++) {
-            Node<T> node = listaAyacencia.get(i);
+            Node<T> node = adjList.get(i);
             for (Node<T> adjacentNode : node.getNodosAdy()) {
-                int j = listaAyacencia.indexOf(adjacentNode);
+                int j = adjList.indexOf(adjacentNode);
                 adjacencyMatrix[i][j] = 1;
             }
         }
@@ -335,8 +335,10 @@ public class Graph<T> implements GraphInterface<T> {
 
         return (T) graph.toString();
     }
-    
 
 
+    public ArrayList<Node<T>> getNodes() {
+        return adjList;
+    }
 }
 
