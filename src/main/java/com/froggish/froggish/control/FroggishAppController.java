@@ -22,6 +22,11 @@ public class FroggishAppController {
     public Scene scene;
     public Parent root;
 
+    @FXML
+    public void initialize() {
+        btn.setPrefWidth(180.0);
+        btn.setPrefHeight(50.0);
+    }
 
     @FXML
     public void startGame(ActionEvent event) throws IOException {
@@ -33,4 +38,3 @@ public class FroggishAppController {
         stage.show();
     }
 }
-
