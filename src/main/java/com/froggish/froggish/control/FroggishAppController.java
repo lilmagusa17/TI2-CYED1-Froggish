@@ -1,4 +1,5 @@
 package com.froggish.froggish.control;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +25,20 @@ public class FroggishAppController {
 
     @FXML
     public void initialize() {
-        btn.setPrefWidth(180.0);
+        btn.setPrefWidth(190.0);
         btn.setPrefHeight(50.0);
+        btn.setVisible(false);
+        ap.setOnMouseClicked(event -> {
+            try {
+                startGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
-    public void startGame(ActionEvent event) throws IOException {
+    public void startGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/froggish/froggish/game-view.fxml"));
         root = fxmlLoader.load();
         scene = new Scene(root);
