@@ -38,10 +38,10 @@ public class GameScreen{
 
         graphicsContext.setFill(Color.THISTLE);
         graphicsContext.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+
         drawGraph();
+
         frogPlayer.paint();//el avatar se pinta sobre el canvas donde esta el screen
-
-
 
     }
 
@@ -49,62 +49,28 @@ public class GameScreen{
         frogPlayer.setOnKeyPressed(event);
     }
 
-    public void setOnKeyReleased(KeyEvent event){
+    public void setOnKeyReleased(KeyEvent event) {
         frogPlayer.setOnKeyReleased(event);
     }
 
-    /*private void drawGraph() {
-        ArrayList<Node<Position>> nodes = graph.getNodes();
-        for (Node<Position> node : nodes) {
-            drawNode(node.getValor());
-            for (Node<Position> adjacentNode : node.getNodosAdy()) {
-                drawPath(node.getValor(), adjacentNode.getValor());
-            }
-        }
-    }*/
-
-    private void drawGraph() {
-        if (graph == null) {
-            System.out.println("Graph is null");
-            return;
-        }
-
-        ArrayList<Node<Position>> nodes = graph.getNodes();
-        if (nodes == null) {
-            System.out.println("Nodes list is null");
-            return;
-        }
-
-        for (Node<Position> node : nodes) {
-            if (node == null || node.getValor() == null) {
-                System.out.println("Node or its value is null");
-                continue;
-            }
-
-            drawNode(node.getValor());
-
-            ArrayList<Node<Position>> adjacentNodes = node.getNodosAdy();
-            if (adjacentNodes != null) {
-                for (Node<Position> adjacentNode : adjacentNodes) {
-                    if (adjacentNode != null && adjacentNode.getValor() != null) {
-                        drawPath(node.getValor(), adjacentNode.getValor());
-                    } else {
-                        System.out.println("Adjacent node or its value is null");
-                    }
-                }
-            }
-        }
+    public void update() {
+        frogPlayer.onMove();
     }
 
+    private void drawGraph() {
+        ArrayList<Node<Position>> nodes = graph.getNodes();
+        drawNodes(nodes);
+    }
 
-    private void drawNode(Position position) {
+    private void drawNodes(ArrayList<Node<Position>> nodes) {
         GraphicsContext gc = getGraphicsContext();
 
-        // Load water lily sprite
-        Image waterLily = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 60, 60, false, false);
+        Image waterLily = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 40, 40, false, false);
 
-        // Draw water lily sprite
-        gc.drawImage(waterLily, position.getX() - 30 / 2, position.getY() - 30 / 2);
+        for (Node<Position> node : nodes) {
+            Position nodePosition = node.getValor();
+            gc.drawImage(waterLily, nodePosition.getX() - 12, nodePosition.getY() - 12);
+        }
     }
 
 
@@ -113,18 +79,18 @@ public class GameScreen{
     }
 
     private void drawPath(Position start, Position end) {
-        GraphicsContext gc = getGraphicsContext();
+        // GraphicsContext gc = getGraphicsContext();
 
-        // Load water lily sprite for the path
-        Image waterLilyPath = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 40, 40, false, false);
+        // // Load water lily sprite for the path
+        // Image waterLilyPath = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 40, 40, false, false);
 
         // Draw water lily sprite for the path
-        gc.drawImage(waterLilyPath, start.getX() - 30 / 2, start.getY() - 30 / 2);
-        gc.drawImage(waterLilyPath, end.getX() - 30 / 2, end.getY() - 30 / 2);
+        // gc.drawImage(waterLilyPath, start.getX() - 10, start.getY() - 10);
+        // gc.drawImage(waterLilyPath, end.getX() - 10, end.getY() - 10);
 
         // Draw a line connecting the nodes
-        gc.setStroke(Color.GRAY);
-        gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
+        // gc.setStroke(Color.GRAY);
+        // gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
 
 }

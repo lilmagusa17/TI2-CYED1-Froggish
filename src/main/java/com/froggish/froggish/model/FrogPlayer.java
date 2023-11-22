@@ -105,9 +105,9 @@ public class FrogPlayer{
 
 
     public void paint() {
-        stop();
         onMove();
-        System.out.println(this.position.getX() + " " + this.position.getY());
+        stop();
+//        System.out.println(this.position.getX() + " " + this.position.getY());
         switch (state) {
             case IDLE: // idle 8
                 this.graphicsContext.drawImage(idles.get(frame % 8), this.position.getX(), this.position.getY());
@@ -134,7 +134,7 @@ public class FrogPlayer{
 
     public void setOnKeyPressed(KeyEvent event) { //recibe evento del teclado
         switch (event.getCode()) {
-            //FIXME should we add jumps for all the directions?
+
             case UP:
                 this.state = State.JUMPR;
                 this.upPressed = true;
