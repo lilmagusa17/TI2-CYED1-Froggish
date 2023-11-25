@@ -336,9 +336,17 @@ public class GraphAdjacencyList<T> implements GraphInterface<T> {
         return (T) graph.toString();
     }
 
+    
+
 
     public ArrayList<Node<T>> getNodes() {
         return adjList;
     }
+
+    public ArrayList<Node<T>> getVertices() {
+        return adjList;
+    }
+
+
 }
 

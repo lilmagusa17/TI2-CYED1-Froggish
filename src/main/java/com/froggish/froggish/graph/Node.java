@@ -8,11 +8,14 @@ public class Node<T> {
     private int color;
     private Node<T> antecedemte;
     private int tiempo;
+    private static final int UNVISITED = 0;
+    private static final int VISITED = 1;
+    private static final int PROCESSED = 2;
 
     public Node(T value, ArrayList<Node<T>> adjacentNodes) {
         this.valor = value;
         this.nodosAdy = adjacentNodes;
-        color = 0;
+        color = UNVISITED;
     }
     public T getValor() {
         return valor;
