@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.froggish.froggish.control.GameController">
+   <children>
+      <Canvas fx:id="canvas" focusTraversable="true" height="550" layoutY="50.0" width="1000.0" />
+      <Label layoutX="153.0" layoutY="14.0" text="FROGGISH" fx:id="lable"/>
+   </children>
+</AnchorPane>
