@@ -68,6 +68,8 @@ public class FrogPlayer{
 
         this.position = startPosition;
 
+        this.graph = new GraphAdjacencyList<>();
+
 
         for (int i = 1; i <= 8; i++) { //idle 8
             Image image = new Image(getClass().getResourceAsStream(PATH_IDLE + i + ".png"), 30, 30, false, false);

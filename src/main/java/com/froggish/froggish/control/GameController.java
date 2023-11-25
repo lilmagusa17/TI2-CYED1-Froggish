@@ -117,13 +117,13 @@ public class GameController implements Initializable {
                 // Connect nodes horizontally
                 if (i > 1) {
                     Position leftNode = new Position((i - 1) * nodeSpacing, row * nodeSpacing);
-                    graph.addEdge(nodePosition, leftNode);
+                    graph.addEdge(leftNode, nodePosition);
                 }
 
                 // Connect nodes vertically
                 if (row > 1) {
                     Position topNode = new Position(i * nodeSpacing, (row - 1) * nodeSpacing);
-                    graph.addEdge(nodePosition, topNode);
+                    graph.addEdge(topNode, nodePosition);
                 }
             }
         }

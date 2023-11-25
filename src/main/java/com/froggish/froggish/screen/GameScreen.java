@@ -1,6 +1,5 @@
 package com.froggish.froggish.screen;
 import com.froggish.froggish.graph.GraphAdjacencyList;
-import com.froggish.froggish.graph.GraphInterface;
 import com.froggish.froggish.graph.Node;
 import com.froggish.froggish.graph.Position;
 import com.froggish.froggish.model.FrogPlayer;
@@ -53,8 +52,6 @@ public class GameScreen{
 
 
         frogPlayer.paint();//el avatar se pinta sobre el canvas donde esta el screen
-
-        drawAvailablePaths(currentNode);
 
     }
 
