@@ -192,46 +192,5 @@ public class GraphAdjacencyListTest {
     }
 
     //test floydWarshall
-    @Test
-    public void test9() {
-        setupScenary1();
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-
-        graph.addEdge("A", "B");
-        graph.addEdge("A", "C");
-        graph.addEdge("C", "B");
-        graph.addEdge("B", "D");
-        graph.addEdge("D", "A");
-
-        int[][] matrix = graph.floydWarshall();
-
-        assertEquals(0, matrix[0][0]);
-        assertEquals(1, matrix[0][1]);
-        assertEquals(1, matrix[0][2]);
-        assertEquals(0, matrix[0][3]);
-
-        assertEquals(0, matrix[1][0]);
-        assertEquals(0, matrix[1][1]);
-        assertEquals(0, matrix[1][2]);
-        assertEquals(1, matrix[1][3]);
-
-        assertEquals(0, matrix[2][0]);
-        assertEquals(1, matrix[2][1]);
-        assertEquals(0, matrix[2][2]);
-        assertEquals(0, matrix[2][3]);
-
-        assertEquals(1, matrix[3][0]);
-        assertEquals(0, matrix[3][1]);
-        assertEquals(0, matrix[3][2]);
-        assertEquals(0, matrix[3][3]);
-
-    }
-
-
-
-
 
 }

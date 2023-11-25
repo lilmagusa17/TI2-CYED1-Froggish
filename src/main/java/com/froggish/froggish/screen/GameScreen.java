@@ -78,19 +78,6 @@ public class GameScreen{
         return this.canvas.getGraphicsContext2D();
     }
 
-    private void drawPath(Position start, Position end) {
-        // GraphicsContext gc = getGraphicsContext();
 
-        // // Load water lily sprite for the path
-        // Image waterLilyPath = new Image(getClass().getResourceAsStream("/com/froggish/froggish/img/elements/WaterLilySprite.png"), 40, 40, false, false);
-
-        // Draw water lily sprite for the path
-        // gc.drawImage(waterLilyPath, start.getX() - 10, start.getY() - 10);
-        // gc.drawImage(waterLilyPath, end.getX() - 10, end.getY() - 10);
-
-        // Draw a line connecting the nodes
-        // gc.setStroke(Color.GRAY);
-        // gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
-    }
 
 }
