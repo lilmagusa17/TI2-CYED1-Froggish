@@ -28,40 +28,37 @@ public class AdjacencyMatrix<V> {
             int indexTo = vertexIndexMap.get(to);
             int weight = new Random().nextInt(10) + 1;
             adjacencyMatrix[indexFrom][indexTo] = new Edge<>(to, weight);
-        } else {
-            System.out.println("Al menos uno de los vértices no está en el mapa.");
         }
     }
 
-    public List<String> dfsWithNeighbors(V start) {
+    public List<String> dfs(V start) {
         boolean[] visited = new boolean[vertices.size()];
         List<String> result = new ArrayList<>();
-        dfsRecursiveWithNeighbors(vertexIndexMap.get(start), visited, result);
+        dfsRecursive(vertexIndexMap.get(start), visited, result);
         return result;
     }
 
-    private void dfsRecursiveWithNeighbors(int start, boolean[] visited, List<String> result) {
-        result.add(vertices.get(start).toString());
+    private void dfsRecursive(int start, boolean[] visited, List<String> result) {
         visited[start] = true;
+        result.add(vertices.get(start).toString());
 
         for (int i = 0; i < vertices.size(); i++) {
             Edge<V> edge = adjacencyMatrix[start][i];
             if (edge != null) {
                 int neighborIndex = vertexIndexMap.get(edge.getDestination());
                 if (!visited[neighborIndex]) {
-                    result.add(vertices.get(neighborIndex).toString());
-                    dfsRecursiveWithNeighbors(neighborIndex, visited, result);
+                    dfsRecursive(neighborIndex, visited, result);
                 }
             }
         }
     }
 
+
+
     public Map<V, Integer> dijkstra(V start) {
-        int startIndex = vertexIndexMap.get(start);
         Map<V, Integer> distances = new HashMap<>();
         PriorityQueue<Vertex<V>> pq = new PriorityQueue<>(Comparator.comparingInt(vd -> vd.getDistance()));
 
-        // Initialize distances
         for (V vertex : vertices) {
             distances.put(vertex, Integer.MAX_VALUE);
         }
@@ -74,7 +71,8 @@ public class AdjacencyMatrix<V> {
             V currentVertex = current.getVertex();
             int currentDistance = current.getDistance();
 
-            if (currentDistance > distances.get(currentVertex)) {
+            // Verificar si el valor devuelto por distances.get(currentVertex) es null
+            if (distances.get(currentVertex) != null && currentDistance > distances.get(currentVertex)) {
                 continue;  // Skip if a shorter distance is already known
             }
 
@@ -95,6 +93,7 @@ public class AdjacencyMatrix<V> {
         return distances;
     }
 
+
     private void updateMatrix() {
         int size = vertices.size();
         Edge<V>[][] newMatrix = new Edge[size][size];
@@ -103,4 +102,16 @@ public class AdjacencyMatrix<V> {
         }
         adjacencyMatrix = newMatrix;
     }
+
+    public Edge<V> getEdge(V from, V to) {
+        if (vertexIndexMap.containsKey(from) && vertexIndexMap.containsKey(to)) {
+            int indexFrom = vertexIndexMap.get(from);
+            int indexTo = vertexIndexMap.get(to);
+            return adjacencyMatrix[indexFrom][indexTo];
+        } else {
+            return null;
+        }
+    }
+
+
 }
