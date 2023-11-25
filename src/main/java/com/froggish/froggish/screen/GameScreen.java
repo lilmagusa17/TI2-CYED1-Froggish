@@ -54,7 +54,6 @@ public class GameScreen{
 
         frogPlayer.paint();//el avatar se pinta sobre el canvas donde esta el screen
 
-        drawAvailablePaths(currentNode);
 
     }
 

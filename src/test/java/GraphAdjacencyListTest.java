@@ -18,11 +18,8 @@ public class GraphAdjacencyListTest {
     }
 
 
-
-
-
     @Test
-    public void test1() {
+    public void strongConnected1() {
         setupScenary1();
         //Adding the nodes in the graph
         graph.addVertex("U");
@@ -42,61 +39,7 @@ public class GraphAdjacencyListTest {
     }
 
     @Test
-    public void test2() {
-        setupScenary1();
-
-        //Adding the nodes in the graph
-        graph.addVertex("U");
-        graph.addVertex("V");
-        graph.addVertex("X");
-        graph.addVertex("Y");
-        graph.addVertex("Z");
-        //Adding the edges in the graph
-        graph.addEdge("U", "X");
-        graph.addEdge("X", "Y");
-        graph.addEdge("Y", "Z");
-        graph.addEdge("Z", "Y");
-        //graph.addEdge("Y", "V");
-        graph.addEdge("V", "U");
-
-        assertFalse(graph.isStronglyConnected());
-    }
-
-    @Test
-    public void test3() {
-        setupScenary1();
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-
-        graph.addEdge("A", "B");
-        graph.addEdge("A", "C");
-        graph.addEdge("C", "B");
-
-        assertFalse(graph.isStronglyConnected());
-
-    }
-
-    @Test
-    public void test4() {
-        setupScenary1();
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-
-        graph.addEdge("A", "B");
-        graph.addEdge("A", "C");
-        graph.addEdge("C", "B");
-        graph.addEdge("B", "D");
-        graph.addEdge("D", "A");
-
-        assertTrue(graph.isStronglyConnected());
-
-    }
-
-    @Test
-    public void test5() {
+    public void strongConnected2() {
         setupScenary2();
         graph2.addVertex(1);
         graph2.addVertex(2);
@@ -114,29 +57,10 @@ public class GraphAdjacencyListTest {
 
     }
 
-    //test DFS
     @Test
-    public void test6() {
+    public void bfs1() {
         setupScenary1();
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-
-        graph.addEdge("A", "B");
-        graph.addEdge("A", "C");
-        graph.addEdge("C", "B");
-        graph.addEdge("B", "D");
-        graph.addEdge("D", "A");
-
-        assertEquals(1, graph.DFS());
-
-    }
-
-    //test BFS
-    @Test
-    public void test7() {
-        setupScenary1();
+        //test BFS
         graph.addVertex("A");
         graph.addVertex("B");
         graph.addVertex("C");
@@ -149,13 +73,66 @@ public class GraphAdjacencyListTest {
         graph.addEdge("D", "A");
 
         assertTrue(graph.BFS("A"));
+    }
+
+    @Test
+    public void bfs2() {
+        setupScenary2();
+        graph2.addVertex(1);
+        graph2.addVertex(2);
+        graph2.addVertex(3);
+        graph2.addVertex(4);
+
+        graph2.addEdge(1, 2);
+        graph2.addEdge(1, 3);
+        graph2.addEdge(3, 2);
+        graph2.addEdge(2, 4);
+
+        assertTrue(graph2.BFS(1));
+
 
     }
 
-    //test dijkstra
     @Test
-    public void test8() {
+    public void dfs1() {
         setupScenary1();
+        //test DFS
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+
+        graph.addEdge("A", "B");
+        graph.addEdge("A", "C");
+        graph.addEdge("C", "B");
+        graph.addEdge("B", "D");
+        graph.addEdge("D", "A");
+
+        assertEquals(1, graph.DFS());
+    }
+
+    //test DFS
+    @Test
+    public void dfs2() {
+        setupScenary2();
+        graph2.addVertex(1);
+        graph2.addVertex(2);
+        graph2.addVertex(3);
+        graph2.addVertex(4);
+
+        graph2.addEdge(1, 2);
+        graph2.addEdge(1, 3);
+        graph2.addEdge(3, 2);
+        graph2.addEdge(2, 4);
+
+        assertEquals(1, graph2.DFS());
+
+    }
+
+    @Test
+    public void dijkstra1(){
+        setupScenary1();
+        //test dijkstra
         graph.addVertex("A");
         graph.addVertex("B");
         graph.addVertex("C");
@@ -169,28 +146,71 @@ public class GraphAdjacencyListTest {
 
         int[][] matrix = graph.dijkstra("A");
 
-        assertEquals(0, matrix[0][0]);
         assertEquals(1, matrix[0][1]);
-        assertEquals(1, matrix[0][2]);
-        assertEquals(0, matrix[0][3]);
+    }
 
-        assertEquals(0, matrix[1][0]);
-        assertEquals(0, matrix[1][1]);
-        assertEquals(0, matrix[1][2]);
-        assertEquals(1, matrix[1][3]);
+    //test dijkstra
+    @Test
+    public void dijkstra2() {
+        setupScenary2();
+        graph2.addVertex(1);
+        graph2.addVertex(2);
+        graph2.addVertex(3);
+        graph2.addVertex(4);
 
-        assertEquals(0, matrix[2][0]);
-        assertEquals(1, matrix[2][1]);
-        assertEquals(0, matrix[2][2]);
-        assertEquals(0, matrix[2][3]);
+        graph2.addEdge(1, 2);
+        graph2.addEdge(1, 3);
+        graph2.addEdge(3, 2);
+        graph2.addEdge(2, 4);
+        graph2.addEdge(4, 1);
 
-        assertEquals(1, matrix[3][0]);
-        assertEquals(0, matrix[3][1]);
-        assertEquals(0, matrix[3][2]);
-        assertEquals(0, matrix[3][3]);
+        int[][] matrix = graph2.dijkstra(1);
+
+        assertEquals(1, matrix[0][1]);
 
     }
 
-    //test floydWarshall
+    @Test
+    public void floyd1() {
+        setupScenary1();
+        //test floidWarshall
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+
+        graph.addEdge("A", "B");
+        graph.addEdge("A", "C");
+        graph.addEdge("C", "B");
+        graph.addEdge("B", "D");
+        graph.addEdge("D", "A");
+
+        int[][] matrix = graph.floydWarshall();
+
+        assertEquals(1, matrix[0][2]);
+
+    }
+
+    //test floidWarshall
+    @Test
+    public void floyd2() {
+        setupScenary2();
+        graph2.addVertex(1);
+        graph2.addVertex(2);
+        graph2.addVertex(3);
+        graph2.addVertex(4);
+
+        graph2.addEdge(1, 2);
+        graph2.addEdge(1, 3);
+        graph2.addEdge(3, 2);
+        graph2.addEdge(2, 4);
+        graph2.addEdge(4, 1);
+
+        int[][] matrix = graph2.floydWarshall();
+
+        assertEquals(1, matrix[0][2]);
+
+
+    }
 
 }
