@@ -8,7 +8,7 @@ import java.util.Map;
 public class AdjacencyMatrixTest {
 
     private AdjacencyMatrix<String> graph;
-    
+
     public void setUp1() {
         graph = new AdjacencyMatrix<>();
     }
