@@ -1,8 +1,12 @@
 # TI2-CYED1-Froggish
 JavaFx game implementing graph data structure learned in class.
 
-Froggish, a game where you have to find the most effective route to take a lost frog to it home. 
+PROJECT SPECIFICATION
 
+Froggish is an adventure game where players take on the role of a cute and determined frog on a quest to find its way home. The objective is to guide the frog, who got lost, to get back to his home by helping him hop on water lily leafs.
+
+Froggish is not only a source of entertainment but also an educational tool that introduces
+players to fundamental graph data structures and algorithms. By skillfully navigating the frog through different levels while optimizing energy consumption, players will gain a deeper understanding of these concepts in an enjoyable gaming experience. Discre believes that Froggish has the potential to offer an exciting and educational gaming experience to a wide audience.
 
 HOW TO PLAY?
 1. Download the project
