@@ -1,6 +1,7 @@
 package com.froggish.froggish.control;
 
 import com.froggish.froggish.graph.GraphAdjacencyList;
+import com.froggish.froggish.graph.Node;
 import com.froggish.froggish.graph.Position;
 import com.froggish.froggish.screen.GameScreen;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.scene.text.Font;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -35,14 +37,26 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.graphicsContext = this.canvas.getGraphicsContext2D();
-        this.graph = createMatrixGraph();  // Initialize the graph
-
-        this.label = new Label();
+        this.graph = createMatrixGraph();
 
         this.screenA = new GameScreen(this.canvas, graph);
         this.screenA.paint();
 
         this.canvas.requestFocus();
+
+        // Get the list of vertices from the graph
+        ArrayList<Node<Position>> vertices = this.graph.getVertices();
+
+        // Set the initial position of the frog player to the first vertex
+        if (!vertices.isEmpty()) {
+            Position initialPosition = vertices.get(0).getValor();
+            this.screenA.getFrogPlayer().getPosition().setX(initialPosition.getX());
+            this.screenA.getFrogPlayer().getPosition().setY(initialPosition.getY());
+        }
+
+        this.label = new Label();
+
+
 
         //suscribe el canvas a las acciones del teclado
         //el screen le pasa el movimiento al avatar
@@ -123,7 +137,7 @@ public class GameController implements Initializable {
 
     public void setFont(){
 
-        InputStream is = getClass().getResourceAsStream("/fonts/body.ttf");
+        InputStream is = label.getClass().getResourceAsStream("/fonts/body.ttf");
 
         if (is != null) {
             // Resto del código para cargar la fuente y aplicarla
